@@ -69,3 +69,35 @@ try:
 finally:
     driver.quit()
 ```
+
+### Tutorial 3
+
+- element.clear() - Clears info inside of a search field
+
+```Python
+# select python programming
+link = driver.find_element(By.LINK_TEXT, "Python Programming")
+link.click()
+
+try:
+    # Click on beginner python tutorials
+    element = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located(
+            (By.LINK_TEXT, "Beginner Python Tutorials"))
+    )
+
+    element.click()
+    # Accesses a href
+    element = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located(
+            (By.ID, "sow-button-19310003"))
+    )
+    element.click()
+    # Goes back
+    driver.back()
+    # Goes forward
+    driver.forward()
+finally:
+    driver.quit()
+
+```
