@@ -1,18 +1,5 @@
-# DACNotes
-
-## Notes for utilising technologies tailored to the requirements of clinical trial clients
-
-Selenium
-To install selenium
-
-- navigate to folder
-- pip3 install
-- pipenv shell
-- pipenv shell selenium
-
-Actions:
-
-```Python
+# Selenium Tutorial 1
+from selenium import webdriver
 # Path of chromedriver in local machine
 PATH = '/user/local/bin/chromedriver'
 driver = webdriver.Chrome(PATH)
@@ -22,4 +9,3 @@ driver.get("https://techwithtim.net/")
 driver.close()
 # closes the entire browser
 driver.quit()
-```
