@@ -1,31 +1,46 @@
-# Selenium Tutorial 1
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import time
+
+# Path of chromedriver in local machine
 PATH = '/user/local/bin/chromedriver'
 driver = webdriver.Chrome(PATH)
+# you can go and check a website
+driver.get("https://techwithtim.net")
+print(driver.title)
+# Finds "s" based on name
+# search = driver.find_element(By.CLASS_NAME, "gLFyf")
+# search.send_keys("test")
+# search.send_keys(Keys.RETURN)
 
-driver.get("https://orteil.dashnet.org/cookieclicker/")
-# wont pass this line until 5 sec is up.
-driver.implicitly_wait(5)
-language = driver.find_element(By.ID, "langSelect-EN")
-cookie = driver.find_element(By.ID, "bigCookie")
-cookie_count = driver.find_element(By.ID, "cookies")
-items = [driver.find_element(By.ID, "productPrice"+str(i))
-         for i in range(1, -1, -1)]  # start at most expensive till last.
+search = driver.find_element(By.NAME, "s")
+search.send_keys("test")
+search.send_keys(Keys.RETURN)
 
-# Sets up chain of actions to run
-selectLanguageAction = ActionChains(driver)
-selectLanguageAction.click(language)
-selectLanguageAction.perform()
+try:
+    main = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.ID, "main"))
+    )
 
-driver.implicitly_wait(20)
+    articles = main.find_elements(By.TAG_NAME, "article")
+    for article in articles:
+        header = article.find_element(By.CLASS_NAME, "entry-summary")
+        print(header.text)
+finally:
+    driver.quit()
 
-actions = ActionChains(driver)
-actions.click(cookie)
 
-for i in range(5000):
-    actions.perform()
-    count = cookie_count.text
-    print(count)
+# try:
+#     main = WebDriverWait(driver, 10).until(
+#         EC.presence_of_element_located((By.ID, "main"))
+#     )
+
+#     articles = main.find_elements(By.TAG_NAME, "article")
+#     for article in articles:
+#         header = article.find_element(By.CLASS_NAME, "entry-summary")
+#         print(header.text)
+# finally:
+#     driver.quit()
